@@ -3,7 +3,7 @@ package main
 import "testing"
 
 const (
-	CALORIES = 24000
+	CALORIES = 45000
 )
 
 func TestGetMaxCalories(t *testing.T) {

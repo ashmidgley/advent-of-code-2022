@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 )
 
@@ -23,15 +24,12 @@ func getMaxCalories(fileName string) (int, error) {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
+	sums := []int{}
 	curr := []int{}
-	max := 0
 	for scanner.Scan() {
 		text := scanner.Text()
 		if text == "" {
-			sum := getSum(curr)
-			if sum > max {
-				max = sum
-			}
+			sums = append(sums, getSum(curr))
 			curr = nil
 		} else {
 			i, err := strconv.Atoi(text)
@@ -41,17 +39,19 @@ func getMaxCalories(fileName string) (int, error) {
 			curr = append(curr, i)
 		}
 	}
+	sums = append(sums, getSum(curr))
 
-	sum := getSum(curr)
-	if sum > max {
-		max = sum
-	}
+	sort.Ints(sums)
 
-	return max, nil
+	l := len(sums)
+	return sums[l-3] + sums[l-2] + sums[l-1], nil
 }
 
 func main() {
-	max, elf := getMaxCalories("input.txt")
-	fmt.Printf("Max: %d\n", max)
-	fmt.Printf("Elf: %d\n", elf)
+	calories, err := getMaxCalories("input.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Printf("Max: %d\n", calories)
 }
