@@ -2,8 +2,6 @@ package main
 
 import "testing"
 
-const TOTAL = 12
-
 func TestGetRequiredMoveScore(t *testing.T) {
 	tt := []struct {
 		Name     string
@@ -78,9 +76,33 @@ func TestGetRequiredMoveScore(t *testing.T) {
 }
 
 func TestCalculateTotal(t *testing.T) {
-	total, _ := calculateTotal("test.txt")
+	tt := []struct {
+		name     string
+		fileName string
+		expected int
+	}{
+		{
+			name:     "test file",
+			fileName: "test.txt",
+			expected: 12,
+		},
+		{
+			name:     "input file",
+			fileName: "input.txt",
+			expected: 12526,
+		},
+	}
 
-	if total != TOTAL {
-		t.Errorf("expected %d; got %d", TOTAL, total)
+	for _, tc := range tt {
+		t.Run(tc.name, func(t *testing.T) {
+			total, err := calculateTotal(tc.fileName)
+			if err != nil {
+				t.Error(err)
+			}
+
+			if total != tc.expected {
+				t.Errorf("expected %d; got %d", tc.expected, total)
+			}
+		})
 	}
 }

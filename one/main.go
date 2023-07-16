@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"sort"
 	"strconv"
@@ -45,13 +44,4 @@ func getMaxCalories(fileName string) (int, error) {
 
 	l := len(sums)
 	return sums[l-3] + sums[l-2] + sums[l-1], nil
-}
-
-func main() {
-	calories, err := getMaxCalories("input.txt")
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Printf("Max: %d\n", calories)
 }

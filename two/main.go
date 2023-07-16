@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strings"
 )
@@ -61,7 +60,7 @@ func getRequiredMoveScore(oppMove string, result int) int {
 func calculateTotal(fileName string) (int, error) {
 	file, err := os.Open(fileName)
 	if err != nil {
-		panic(err)
+		return 0, err
 	}
 	defer file.Close()
 
@@ -77,13 +76,4 @@ func calculateTotal(fileName string) (int, error) {
 	}
 
 	return total, nil
-}
-
-func main() {
-	total, err := calculateTotal("input.txt")
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("Total: %d", total)
 }
