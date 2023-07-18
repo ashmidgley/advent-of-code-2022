@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 )
 
@@ -66,13 +65,4 @@ func getPrioritySum(fileName string) (int, error) {
 	}
 
 	return total, nil
-}
-
-func main() {
-	sum, err := getPrioritySum("input.txt")
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("Priority Sum: %d\n", sum)
 }
